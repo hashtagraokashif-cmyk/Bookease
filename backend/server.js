@@ -94,10 +94,19 @@ app.get("/api/health", healthCheck);
 // the website itself, so the whole app runs as one service on one address.
 // Without a build (e.g. local development, where Vite serves the pages),
 // "/" just reports that the API is running.
-const FRONTEND_DIST = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "frontend", "dist");
-const FRONTEND_INDEX = path.join(FRONTEND_DIST, "index.html");
+// Where this file lives. When the backend is bundled for a serverless host
+// (Netlify), this can be unavailable; the host then serves the pages itself.
+const THIS_FILE = (() => {
+  try {
+    return fileURLToPath(import.meta.url);
+  } catch {
+    return null;
+  }
+})();
+const FRONTEND_DIST = THIS_FILE ? path.join(path.dirname(THIS_FILE), "..", "frontend", "dist") : null;
+const FRONTEND_INDEX = FRONTEND_DIST ? path.join(FRONTEND_DIST, "index.html") : null;
 
-if (fs.existsSync(FRONTEND_INDEX)) {
+if (FRONTEND_INDEX && fs.existsSync(FRONTEND_INDEX)) {
   // Built files. Names under /assets change with every build, so browsers can
   // keep them for a year; everything else is re-checked on each visit.
   app.use(
@@ -167,7 +176,7 @@ export const startServer = async () => {
 
 // Start only when run directly (node server.js / nodemon), not when imported by tests.
 const isMainModule =
-  process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+  Boolean(THIS_FILE) && Boolean(process.argv[1]) && path.resolve(process.argv[1]) === THIS_FILE;
 
 if (isMainModule) {
   startServer();

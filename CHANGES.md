@@ -100,6 +100,21 @@ Tested on 9 screen sizes from a folded Galaxy Fold (280px) to desktop, on all
   whenever a build exists.
 - **`.node-version` pins Node 22**, which the frontend build tool needs.
 
+## Netlify hosting (no card needed)
+
+- **`netlify/functions/api.js` runs the Express backend as a Netlify
+  Function.** `netlify.toml` sends `/api/*` to it and every other address to
+  the website.
+- **The function reads JSON request bodies itself.** The `serverless-http`
+  adapter hands Express 5 the body already marked as read, so without this
+  the login, sign-up and booking forms would arrive empty.
+- **The backend's file-location checks are guarded.** Netlify bundles the
+  function, and that made the file location unavailable.
+
+Tested with Netlify's own CLI (`netlify serve`), which runs the production
+build, the bundled function and the redirects: the full customer and provider
+journey passes, 31/31.
+
 ## Cleaned up
 
 - Removed:

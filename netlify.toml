@@ -1,0 +1,24 @@
+# Netlify settings for BookEase: the website and the backend on one address.
+
+[build]
+  # Netlify runs `npm install` first, which installs the backend and frontend too.
+  command = "npm run build"
+  publish = "frontend/dist"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# API requests go to the backend, running as a Netlify function.
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+  force = true
+
+# Every other page address (/services, /providers/123, ...) loads the app,
+# which then shows the right page.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

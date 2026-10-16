@@ -91,11 +91,11 @@ Anyone can also sign up as a new customer from the site.
 - Customers only see their own bookings; providers only see bookings made with
   them. Providers can't book, and sign-up always creates a customer.
 
-## Put it online (one Render service)
+## Put it online (free, on Netlify)
 
-The backend also serves the website once it has been built, so the whole app
-runs as **one** Render web service on one address. No separate frontend host is
-needed.
+Netlify hosts the website and runs the backend as a Netlify Function, so the
+whole app lives on one address. No card is needed. `netlify.toml` holds all
+the settings.
 
 1. **Database:** create a free MongoDB Atlas cluster. Add a database user, and
    allow access from anywhere (`0.0.0.0/0`) under Network Access. Fill it with
@@ -104,23 +104,43 @@ needed.
    MONGO_URI="your-atlas-connection-string" npm run seed
    ```
 2. **Code:** push this project to GitHub.
-3. **Render:** go to **New → Web Service**, pick the repository, and use:
+3. **Netlify:** go to **Add new project → Import an existing project →
+   GitHub** and pick the repository. Netlify reads `netlify.toml`, so leave
+   the build settings as they are:
 
-   | Setting | Value |
+   | Setting | Value (read from `netlify.toml`) |
    | --- | --- |
-   | Root Directory | *(leave empty)* |
-   | Build Command | `npm install && npm run build` |
-   | Start Command | `npm start --prefix backend` |
-   | Instance Type | Free |
-   | Environment variables | `MONGO_URI` (your Atlas string) and `JWT_SECRET` (a long random string) |
+   | Base directory | *(empty)* |
+   | Build command | `npm run build` |
+   | Publish directory | `frontend/dist` |
+   | Functions directory | `netlify/functions` |
 
-4. **Check it:** open `https://<your-service>.onrender.com` for the website,
-   and `https://<your-service>.onrender.com/api/health` for the API.
+4. **Environment variables:** add `MONGO_URI` (your Atlas string) and
+   `JWT_SECRET` (a long random string), then deploy.
+5. **Check it:** open `https://<your-site>.netlify.app` for the website, and
+   `https://<your-site>.netlify.app/api/health` for the API.
 
-**Free-plan limits:** the service sleeps after 15 minutes without visitors,
-so the first visit after that takes about a minute.
+Every push to GitHub redeploys the site automatically.
 
-The Node version is set in `.node-version` (Node 22).
+How it fits together:
+
+- `/api/*` requests go to `netlify/functions/api.js`, which runs the same
+  Express backend.
+- Every other address loads the website.
+
+### Alternative: one Render web service (needs a card)
+
+The backend can also serve the built website itself. On Render, create a Web
+Service with these settings:
+
+- **Root Directory:** empty
+- **Build Command:** `npm install && npm run build`
+- **Start Command:** `npm start --prefix backend`
+- **Environment variables:** the same two
+
+Render asks for a card for verification, even on the free plan.
+
+The Node version is set in `.node-version` (Node 22) for both hosts.
 
 ## Other commands
 

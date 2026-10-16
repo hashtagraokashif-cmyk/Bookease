@@ -12,6 +12,9 @@
     "test": "npm --prefix backend test",
     "build": "npm --prefix frontend run build"
   },
+  "dependencies": {
+    "serverless-http": "^3.2.0"
+  },
   "devDependencies": {
     "concurrently": "^9.1.0"
   }

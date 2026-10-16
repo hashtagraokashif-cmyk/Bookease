@@ -1,0 +1,326 @@
+.about-page {
+  background: #f8fafc;
+  color: #172033;
+}
+
+/* Hero */
+
+.about-hero {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 85px 24px 75px;
+  text-align: center;
+}
+
+.about-badge {
+  display: inline-block;
+
+  padding: 8px 15px;
+
+  background: #eaf1ff;
+  color: #2563eb;
+
+  border-radius: 30px;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.about-hero h1 {
+  margin: 22px 0 20px;
+
+  font-size: clamp(42px, 6vw, 65px);
+  line-height: 1.08;
+  letter-spacing: -2.5px;
+}
+
+.about-hero h1 span {
+  display: block;
+  color: #2563eb;
+}
+
+.about-hero p {
+  max-width: 720px;
+  margin: 0 auto;
+
+  color: #64748b;
+
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+/* Introduction */
+
+.about-introduction {
+  max-width: 1150px;
+  margin: 0 auto;
+
+  padding: 70px 24px;
+
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 70px;
+
+  align-items: center;
+}
+
+.section-label {
+  color: #2563eb;
+
+  font-size: 13px;
+  font-weight: 800;
+
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.about-intro-content h2,
+.about-section-heading h2 {
+  margin: 14px 0 18px;
+
+  color: #172033;
+
+  font-size: 36px;
+  line-height: 1.2;
+  letter-spacing: -1px;
+}
+
+.about-intro-content p {
+  margin: 0 0 16px;
+
+  color: #64748b;
+
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.about-highlight {
+  padding: 38px;
+
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.06);
+}
+
+.highlight-icon {
+  width: 55px;
+  height: 55px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 22px;
+
+  background: #eaf1ff;
+  color: #2563eb;
+
+  border-radius: 14px;
+
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.about-highlight h3 {
+  margin: 0;
+
+  font-size: 23px;
+}
+
+.about-highlight p {
+  margin: 13px 0 0;
+
+  color: #64748b;
+
+  line-height: 1.7;
+}
+
+/* Workflow */
+
+.about-workflow {
+  background: #ffffff;
+
+  padding: 85px 24px;
+}
+
+.about-section-heading {
+  max-width: 800px;
+  margin: 0 auto 45px;
+
+  text-align: center;
+}
+
+.about-section-heading p {
+  max-width: 650px;
+  margin: 0 auto;
+
+  color: #64748b;
+
+  line-height: 1.7;
+}
+
+.workflow-grid {
+  max-width: 1150px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 20px;
+}
+
+.workflow-card {
+  padding: 28px;
+
+  background: #f8fafc;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+
+  transition: 0.3s ease;
+}
+
+.workflow-card:hover {
+  transform: translateY(-5px);
+
+  box-shadow: 0 15px 35px rgba(15, 23, 42, 0.07);
+}
+
+.workflow-number {
+  color: #2563eb;
+
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.workflow-card h3 {
+  margin: 18px 0 10px;
+
+  font-size: 21px;
+}
+
+.workflow-card p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* Roles */
+
+.about-roles {
+  max-width: 1200px;
+  margin: 0 auto;
+
+  padding: 85px 24px;
+}
+
+.roles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 22px;
+}
+
+.role-card {
+  padding: 32px;
+
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+
+  transition: 0.3s ease;
+}
+
+.role-card:hover {
+  transform: translateY(-5px);
+
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.07);
+}
+
+.role-number {
+  color: #2563eb;
+
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.role-card h3 {
+  margin: 17px 0 10px;
+
+  font-size: 23px;
+}
+
+.role-card p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* Tablet */
+
+@media (max-width: 900px) {
+  .about-introduction {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .workflow-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .roles-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 550px) {
+  .about-hero {
+    padding: 60px 20px;
+  }
+
+  .about-hero h1 {
+    font-size: 40px;
+    letter-spacing: -1px;
+  }
+
+  .about-hero p {
+    font-size: 15px;
+  }
+
+  .about-introduction {
+    padding: 60px 20px;
+  }
+
+  .about-intro-content h2,
+  .about-section-heading h2 {
+    font-size: 30px;
+  }
+
+  .about-highlight {
+    padding: 28px;
+  }
+
+  .about-workflow {
+    padding: 60px 20px;
+  }
+
+  .workflow-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-roles {
+    padding: 60px 20px;
+  }
+}

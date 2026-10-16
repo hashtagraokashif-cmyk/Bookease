@@ -1,0 +1,139 @@
+/* Summary numbers */
+
+.pd-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 30px;
+}
+
+.pd-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 22px 24px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+}
+
+.pd-stat span {
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.pd-stat strong {
+  color: #172033;
+  font-size: 34px;
+  line-height: 1.1;
+}
+
+.pd-stat small {
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.pd-stat:first-child {
+  border-color: #dbe7ff;
+  background: #f5f8ff;
+}
+
+.pd-stat:first-child strong {
+  color: #2563eb;
+}
+
+/* Tabs */
+
+.pd-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.pd-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: #ffffff;
+  border: 1px solid #dbe3ef;
+  border-radius: 8px;
+  color: #64748b;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.pd-tab span {
+  padding: 1px 8px;
+  border-radius: 20px;
+  background: #f1f5f9;
+  font-size: 12px;
+}
+
+.pd-tab:hover {
+  color: #2563eb;
+}
+
+.pd-tab.active {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}
+
+.pd-tab.active span {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Actions */
+
+.pd-btn {
+  padding: 9px 15px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.pd-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.pd-btn-primary {
+  background: #2563eb;
+  border: 1px solid #2563eb;
+  color: #ffffff;
+}
+
+.pd-btn-primary:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.pd-btn-success {
+  background: #047857;
+  border: 1px solid #047857;
+  color: #ffffff;
+}
+
+.pd-btn-danger {
+  background: #ffffff;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+}
+
+.pd-btn-danger:hover:not(:disabled) {
+  background: #fef2f2;
+}
+
+@media (max-width: 700px) {
+  .pd-stats {
+    grid-template-columns: 1fr;
+  }
+}

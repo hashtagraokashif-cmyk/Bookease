@@ -1,0 +1,248 @@
+/* ================================
+   SERVICE CARD
+================================ */
+
+.service-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  overflow: hidden;
+  transition: 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+}
+
+
+/* ================================
+   PROVIDER HEADER
+================================ */
+
+.service-card-provider {
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid #eef0f3;
+}
+
+.provider-avatar {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #eaf1ff;
+  color: #2563eb;
+
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.provider-info h3 {
+  margin: 0;
+
+  color: #172033;
+
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.provider-info span {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #64748b;
+
+  font-size: 13px;
+}
+
+
+/* ================================
+   SERVICE CONTENT
+================================ */
+
+.service-card-content {
+  padding: 24px;
+}
+
+.service-card-content h2 {
+  margin: 0;
+
+  color: #172033;
+
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.service-card-content > p {
+  margin: 12px 0 0;
+
+  color: #64748b;
+
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+
+/* ================================
+   SERVICE META
+================================ */
+
+.service-meta {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 12px;
+
+  margin-top: 22px;
+}
+
+.meta-box {
+  padding: 14px;
+
+  background: #f8fafc;
+
+  border-radius: 10px;
+}
+
+.meta-box span {
+  display: block;
+
+  color: #94a3b8;
+
+  font-size: 12px;
+}
+
+.meta-box strong {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #172033;
+
+  font-size: 15px;
+}
+
+
+/* ================================
+   LOCATION
+================================ */
+
+.service-location {
+  margin-top: 18px;
+
+  color: #64748b;
+
+  font-size: 13px;
+}
+
+
+/* ================================
+   CARD BUTTONS
+================================ */
+
+.service-card-actions {
+  padding: 18px 22px;
+
+  display: flex;
+
+  gap: 10px;
+
+  border-top: 1px solid #eef0f3;
+}
+
+.view-provider-btn,
+.book-appointment-btn {
+  flex: 1;
+
+  padding: 11px 14px;
+
+  border-radius: 8px;
+
+  text-align: center;
+
+  text-decoration: none;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  transition: 0.3s ease;
+}
+
+
+/* View Provider */
+
+.view-provider-btn {
+  color: #2563eb;
+
+  background: #f1f5ff;
+}
+
+.view-provider-btn:hover {
+  background: #e5edff;
+}
+
+
+/* Book Appointment */
+
+.book-appointment-btn {
+  color: #ffffff;
+
+  background: #2563eb;
+}
+
+.book-appointment-btn:hover {
+  background: #1d4ed8;
+}
+
+
+/* ================================
+   MOBILE RESPONSIVE
+================================ */
+
+@media (max-width: 600px) {
+
+  .service-card-provider {
+    padding: 18px;
+  }
+
+  .service-card-content {
+    padding: 20px;
+  }
+
+  .service-card-actions {
+    padding: 16px 18px;
+  }
+
+}
+
+
+@media (max-width: 500px) {
+
+  .service-card-actions {
+    flex-direction: column;
+  }
+
+  .service-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .view-provider-btn,
+  .book-appointment-btn {
+    width: 100%;
+
+    box-sizing: border-box;
+  }
+
+}

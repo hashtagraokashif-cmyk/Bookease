@@ -7,6 +7,7 @@
  */
 import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
+import fs from "fs";
 import mongoose from "mongoose";
 
 process.env.MONGO_URI = process.env.TEST_MONGO_URI || "mongodb://127.0.0.1:27017/appointment_booking_test";
@@ -66,7 +67,7 @@ after(async () => {
 });
 
 test("API health check", async () => {
-  const r = await call("GET", "/");
+  const r = await call("GET", "/api/health");
   assert.equal(r.status, 200);
   assert.equal(r.data.success, true);
 });
@@ -328,4 +329,53 @@ test("profile update and password change", async () => {
 test("broken JSON gets a clear 400", async () => {
   const res = await fetch(base + "/api/auth/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: "{oops" });
   assert.equal(res.status, 400);
+});
+
+test("requests from the site's own address are allowed; other websites are not", async () => {
+  const own = new URL(base).host;
+  const send = (origin) =>
+    fetch(base + "/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Origin: origin },
+      body: JSON.stringify({ email: "customer@bookease.test", password: "Customer@123" }),
+    });
+
+  // One-service setup: the page and the API share an address.
+  assert.equal((await send(`https://${own}`)).status, 200);
+  // Phones on the same Wi-Fi and local development still work.
+  assert.equal((await send("http://192.168.1.20:5173")).status, 200);
+  assert.equal((await send("http://localhost:5173")).status, 200);
+  // Anyone else is refused.
+  assert.equal((await send("https://evil.example.com")).status, 403);
+  assert.equal((await send(`https://${own}.evil.example.com`)).status, 403);
+});
+
+// These run when the frontend has been built (npm run build), which is what
+// happens on Render. Without a build they are skipped.
+const DIST = new URL("../../frontend/dist/", import.meta.url);
+const hasBuild = fs.existsSync(new URL("index.html", DIST));
+
+test("serves the website: home page and every page address load the app", { skip: !hasBuild && "frontend not built" }, async () => {
+  for (const page of ["/", "/services", "/providers/abc123", "/appointments", "/login"]) {
+    const res = await fetch(base + page);
+    assert.equal(res.status, 200, page);
+    assert.match(res.headers.get("content-type"), /text\/html/, page);
+    assert.match(await res.text(), /<div id="root">/, page);
+    assert.equal(res.headers.get("cache-control"), "no-cache", page);
+  }
+});
+
+test("serves built files with long caching, and missing files get a real 404", { skip: !hasBuild && "frontend not built" }, async () => {
+  const asset = fs.readdirSync(new URL("assets/", DIST)).find((f) => f.endsWith(".js"));
+  const res = await fetch(`${base}/assets/${asset}`);
+  assert.equal(res.status, 200);
+  assert.match(res.headers.get("content-type"), /javascript/);
+  assert.match(res.headers.get("cache-control"), /immutable/);
+
+  const missing = await fetch(`${base}/assets/does-not-exist.js`);
+  assert.equal(missing.status, 404, "a missing file must not return the web page");
+
+  const apiMissing = await fetch(`${base}/api/does-not-exist`);
+  assert.equal(apiMissing.status, 404);
+  assert.equal((await apiMissing.json()).message, "Route not found");
 });

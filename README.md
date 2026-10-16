@@ -91,6 +91,37 @@ Anyone can also sign up as a new customer from the site.
 - Customers only see their own bookings; providers only see bookings made with
   them. Providers can't book, and sign-up always creates a customer.
 
+## Put it online (one Render service)
+
+The backend also serves the website once it has been built, so the whole app
+runs as **one** Render web service on one address. No separate frontend host is
+needed.
+
+1. **Database:** create a free MongoDB Atlas cluster. Add a database user, and
+   allow access from anywhere (`0.0.0.0/0`) under Network Access. Fill it with
+   the demo data from your computer:
+   ```bash
+   MONGO_URI="your-atlas-connection-string" npm run seed
+   ```
+2. **Code:** push this project to GitHub.
+3. **Render:** go to **New → Web Service**, pick the repository, and use:
+
+   | Setting | Value |
+   | --- | --- |
+   | Root Directory | *(leave empty)* |
+   | Build Command | `npm install && npm run build` |
+   | Start Command | `npm start --prefix backend` |
+   | Instance Type | Free |
+   | Environment variables | `MONGO_URI` (your Atlas string) and `JWT_SECRET` (a long random string) |
+
+4. **Check it:** open `https://<your-service>.onrender.com` for the website,
+   and `https://<your-service>.onrender.com/api/health` for the API.
+
+**Free-plan limits:** the service sleeps after 15 minutes without visitors,
+so the first visit after that takes about a minute.
+
+The Node version is set in `.node-version` (Node 22).
+
 ## Other commands
 
 | Command | What it does |
@@ -109,6 +140,7 @@ All under `http://localhost:5050/api`. Routes marked with a role need an
 | --- | --- | --- | --- |
 | POST | `/auth/register` | anyone | Create a customer account, returns a token |
 | POST | `/auth/login` | anyone | Log in, returns a token |
+| GET | `/health` | anyone | Check the API is running |
 | GET | `/auth/me` | logged in | Current user |
 | PUT | `/auth/me` | logged in | Update name and phone |
 | PUT | `/auth/me/password` | logged in | Change password |

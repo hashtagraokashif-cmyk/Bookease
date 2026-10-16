@@ -88,6 +88,18 @@ Tested on 9 screen sizes from a folded Galaxy Fold (280px) to desktop, on all
 - no tap target under 24px, no text under 11px
 - on desktop, every screen is pixel-identical to before
 
+## One-service hosting
+
+- **The backend now also serves the built website.** On Render, the pages
+  and the API share one address, so there's no separate frontend host or
+  extra linking settings.
+- **The backend accepts requests from its own address.** Browsers still
+  label same-address requests with an `Origin` header, which the previous
+  rule would have refused. Other websites are still refused.
+- **The API health check moved to `/api/health`.** `/` is now the website
+  whenever a build exists.
+- **`.node-version` pins Node 22**, which the frontend build tool needs.
+
 ## Cleaned up
 
 - Removed:
